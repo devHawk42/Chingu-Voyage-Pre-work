@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mapbox-gl": "^1.2.0",
+    "mapbox-gl-geocoder": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
