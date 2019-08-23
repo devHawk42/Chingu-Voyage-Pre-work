@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import MapboxGeocoder from 'mapbox-gl-geocoder';
+import makeRequest from './utils/meteoriteData'
 
 class App extends Component {
     componentDidMount() {
@@ -9,8 +10,9 @@ class App extends Component {
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/streets-v11'
         });
-
         this.addSearch();
+
+        this.drawPoints();
     }
 
     addSearch() {
@@ -18,6 +20,33 @@ class App extends Component {
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl
         }));
+    }
+
+    async drawPoints(){
+        let self = this;
+        
+        let {features} = await makeRequest.getAll();
+
+        this.map.on("load", function() {
+            self.map.addSource("national-park", {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": features,
+                }
+            })
+            
+            self.map.addLayer({
+                "id": "park-volcanoes",
+                "type": "circle",
+                "source": "national-park",
+                "paint": {
+                    "circle-radius": 6,
+                    "circle-color": "#B42222"
+                },
+                "filter": ["==", "$type", "Point"],
+            });
+        })
     }
 
     componentWillUnmount() {
