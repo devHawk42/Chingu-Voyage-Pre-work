@@ -1,0 +1,35 @@
+:root {
+    --main-bg-color: #fff;
+    /* background: rgba(31, 7, 52, 0.9);
+    color: #fff; */
+}
+
+.body, div {
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.descItem {
+    font-size: 14px;
+}
+
+.mapboxgl-popup-content {
+    background: var(--main-bg-color);
+    padding: 10px 10px 10px 5px;
+}
+
+.sidebar-container {
+    position: fixed;
+    z-index: 10;
+    background: var(--main-bg-color);
+    width: auto;
+    height: auto;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 4px;
+}
