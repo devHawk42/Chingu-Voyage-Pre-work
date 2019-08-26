@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
 
 class Sidebar extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+
+        }
+    }
+
     render() {
+        let { points, onClick } = this.props;
+
         return (
             <div className="sidebar-container">
-                <ul className="items-list">
-                    <li className="item-info">1</li>
-                    <li className="item-info">2</li>
-                    <li className="item-info">3</li>
-                </ul>
+                <div className="filter-container">
+
+                </div>
+
+                <div className="items-list-container">
+                    <ul className="items-list">
+                        {
+                            points.map(point => (
+                                <div onClick={() => onClick(point.geometry.coordinates)} className="single-item-container">
+                                    <li className="item" key={point.properties.id} className="item-info">{point.properties.name}</li>
+                                </div>
+                            ))
+                        }
+                    </ul>
+                </div>
             </div>
         );
     }

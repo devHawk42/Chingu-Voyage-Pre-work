@@ -5,6 +5,13 @@ import makeRequest from './utils/meteoriteData'
 import Sidebar from './components/Sidebar';
 
 class App extends Component {
+    constructor(){
+        super();
+        this.state = {
+            points : [],
+        };
+    }
+    
     componentDidMount() {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aGF3ayIsImEiOiJjanoxejdwbGQwMHh6M2ZvM25odmJkbGMzIn0.Idjb5ZxlFgsdzYRnBkgPSg';
         this.map = new mapboxgl.Map({
@@ -30,6 +37,10 @@ class App extends Component {
         
         let {features} = await makeRequest.getAll();
         
+        this.setState({
+            points: features,
+        })
+
         this.map.on("load", function() {
             self.map.addSource("national-park", {
                 "type": "geojson",
@@ -57,6 +68,7 @@ class App extends Component {
             closeButton: false,
             closeOnClick: false
         });
+        let self = this;
 
         this.map.on('mouseenter', 'park-volcanoes', function(e) {
             self.map.getCanvas().style.cursor = 'pointer';
@@ -82,7 +94,7 @@ class App extends Component {
         return (
             `<h1><strong>${properties.name}</strong></h1>
                 <ul>
-                    <li class="descItem">Mass: ${properties.mass}g</li>
+                    <li class="descItem">Mass: ${(properties.mass !== 'null') ? properties.mass + 'g' : 'Unknown'}</li>
                     <li class="descItem">Date: ${properties.year.split("T")[0]}</li>
                     <li class="descItem">Fall: ${properties.fall}</li>
                     <li class="descItem">Recclass: ${properties.recclass}</li>
@@ -90,6 +102,13 @@ class App extends Component {
             `);
     }
 
+    handleClick(coordinates) {
+        this.map.flyTo({
+            center: coordinates.slice(),
+            zoom: 9,
+        });
+    };
+    
 /*     componentWillUnmount() {
         this.map.remove();
     }
@@ -102,10 +121,12 @@ class App extends Component {
             left: 0,
             width: '100%'
         };
+        let { points } = this.state;
 
         return (
+
             <div style={style} ref={el => this.mapContainer = el} >
-                <Sidebar />
+                <Sidebar points={points} onClick={e => this.handleClick(e)}/>
             </div>
         );
     }
