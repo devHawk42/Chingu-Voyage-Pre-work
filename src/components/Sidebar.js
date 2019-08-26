@@ -16,8 +16,8 @@ class Sidebar extends Component {
                     <ul className="items-list">
                         {
                             points.map(point => (
-                                <div onClick={() => onClick(point.geometry.coordinates)} className="single-item-container">
-                                    <li className="item" key={point.properties.id} className="item-info">{point.properties.name}</li>
+                                <div key={point.properties.id} onClick={() => onClick(point.geometry.coordinates)} className="single-item-container">
+                                    <li className="item" className="item-info">{point.properties.name}</li>
                                 </div>
                             ))
                         }

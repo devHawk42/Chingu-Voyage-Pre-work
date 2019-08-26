@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import makeRequest from './utils/meteoriteData'
 import Sidebar from './components/Sidebar';
+import MapboxKey from '../key';
 
 class App extends Component {
     constructor(){
@@ -12,7 +13,7 @@ class App extends Component {
     }
     
     componentDidMount() {
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aGF3ayIsImEiOiJjanoxejdwbGQwMHh6M2ZvM25odmJkbGMzIn0.Idjb5ZxlFgsdzYRnBkgPSg';
+        mapboxgl.accessToken = MapboxKey;
         this.map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/dark-v10',
