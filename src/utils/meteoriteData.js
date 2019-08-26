@@ -1,5 +1,5 @@
 const getAll = () => (
-  fetch('https://data.nasa.gov/resource/gh4g-9sfh.geojson?%24limit=20')
+  fetch('https://data.nasa.gov/resource/gh4g-9sfh.geojson?')
      .then(function(response) {
        return response.json();
      })

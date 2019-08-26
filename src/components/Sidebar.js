@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 class Sidebar extends Component {
     constructor(props){
         super(props);
-        this.state = {
-
-        }
     }
 
     render() {
@@ -13,9 +10,7 @@ class Sidebar extends Component {
 
         return (
             <div className="sidebar-container">
-                <div className="filter-container">
-
-                </div>
+                <div className="filter-container" />
 
                 <div className="items-list-container">
                     <ul className="items-list">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
-import MapboxGeocoder from 'mapbox-gl-geocoder';
 import makeRequest from './utils/meteoriteData'
 import Sidebar from './components/Sidebar';
 
@@ -42,7 +41,7 @@ class App extends Component {
         })
 
         this.map.on("load", function() {
-            self.map.addSource("national-park", {
+            self.map.addSource("earth", {
                 "type": "geojson",
                 "data": {
                     "type": "FeatureCollection",
@@ -51,9 +50,9 @@ class App extends Component {
             })
             
             self.map.addLayer({
-                "id": "park-volcanoes",
+                "id": "meteorite-landing",
                 "type": "circle",
-                "source": "national-park",
+                "source": "earth",
                 "paint": {
                     "circle-radius": 6,
                     "circle-color": "#B42222"
@@ -70,7 +69,7 @@ class App extends Component {
         });
         let self = this;
 
-        this.map.on('mouseenter', 'park-volcanoes', function(e) {
+        this.map.on('mouseenter', 'meteorite-landing', function(e) {
             self.map.getCanvas().style.cursor = 'pointer';
             var coordinates = e.features[0].geometry.coordinates.slice();
             var description = self.getHTMLDescription(e.features[0].properties);
@@ -84,7 +83,7 @@ class App extends Component {
             .addTo(self.map);
         });
             
-        this.map.on('mouseleave', 'park-volcanoes', function() {
+        this.map.on('mouseleave', 'meteorite-landing', function() {
             self.map.getCanvas().style.cursor = '';
             popup.remove();
         });
@@ -109,10 +108,6 @@ class App extends Component {
         });
     };
     
-/*     componentWillUnmount() {
-        this.map.remove();
-    }
- */
     render() {
         const style = {
             position: 'absolute',
